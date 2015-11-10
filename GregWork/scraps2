@@ -1,0 +1,34 @@
+std::ifstream x2("x_RatioFile2", std::ios::binary); 
+	std::vector<double> xv2((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y2("y_RatioFile2", std::ios::binary);
+	std::vector<double> yv2((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());
+
+    std::ifstream x3("x_RatioFile3", std::ios::binary); 
+	std::vector<double> xv3((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y3("y_RatioFile3", std::ios::binary);
+	std::vector<double> yv3((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());
+
+
+	# Main plotting:
+#-----------------
+plot "RatioFile2" u 1:2 title "RatioFile2 (raw)" lt rgb '#66CDAA', "RatioFile3" u 1:2 title "RatioFile3 (bins)" lt rgb 'dark-violet', "ErrorFile" title "Error values" lt rgb 'black'
+
+
+
+ // char *RatFile1 = "RatioFile1";
+ // ofstream RATFILE1;
+ // RATFILE1.open(RatFile1);
+ // double center1 = 0;
+
+
+
+
+    std::ifstream x2("x_RatioFile2", std::ios::binary); 
+	std::vector<double> xv2((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y2("y_RatioFile2", std::ios::binary);
+	std::vector<double> yv2((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());
+    
+    std::ifstream x3("x_RatioFile3", std::ios::binary); 
+	std::vector<double> xv3((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y3("y_RatioFile3", std::ios::binary);
+	std::vector<double> yv3((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());

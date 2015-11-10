@@ -1,0 +1,16 @@
+# This file provides a generalized Gnuplot routine
+# Written by Gautam Machiraju Sept. 2015
+#-----------------
+reset
+set term x11
+set multiplot
+set title 'Ratio Data and Quartic Splines'
+set xlabel "q"
+set ylabel "I"
+set boxwidth 0.005
+set style fill solid
+
+plot "RatioFile2" u 1:2 title "RatioFile2 (raw)" lt rgb '#66CDAA', "RatioFile3" u 1:2 title "RatioFile3 (bins)" lt rgb 'dark-violet', "ErrorFile" with boxes title "Error values"
+
+unset multiplot
+pause -1

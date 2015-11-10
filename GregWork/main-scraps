@@ -1,0 +1,57 @@
+int main() {
+    // Spline_interp needs vecDoubs as input
+
+    //here, we try to fit cubic splines between RatioFile2 points and find the error with the RatioFile3 points
+    int n2 = 0; 
+	std::string line2;
+    std::ifstream myfile2("RatioFile2"); //raw data points
+    while (std::getline(myfile2, line2))
+        ++n2; //getting number of lines in data file
+    std::ifstream x2("x_RatioFile2", std::ios::binary); 
+	std::vector<double> xv2((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y2("y_RatioFile2", std::ios::binary);
+	std::vector<double> yv2((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());
+
+
+    int n3 = 0;
+	std::string line3;
+    std::ifstream myfile3("RatioFile3"); //binned values
+    while (std::getline(myfile3, line3))
+        ++n3; //getting number of lines in data file
+    std::ifstream x3("x_RatioFile3", std::ios::binary); 
+	std::vector<double> xv3((std::istreambuf_iterator<char>(x2)), std::istreambuf_iterator<char>());
+	std::ifstream y3("y_RatioFile3", std::ios::binary);
+	std::vector<double> yv3((std::istreambuf_iterator<char>(y2)), std::istreambuf_iterator<char>());
+
+
+    // Now you have 4 arrays: xv2, xv3, yv2, and yv3 - The interpolation routine needs vecDoub objects
+    VecDoub xvd2(n2) = xv2;
+    VecDoub yvd2(n2) = yv2;
+   	VecDoub xvd3(n3) = xv3;
+    VecDoub yvd3(n3) = yv3;
+
+    // Function call
+    Spline_interp si = Spline_interp(xvd2, yvd2);
+
+    // Will print n values of y and interpolated value of y for xmin <= x <= xmax (RatioFile3 - binned data)
+
+    char *Err_RatFile = "ErrorFile";          
+  	ofstream ERRORFILE;                             
+  	ERRORFILE.open(Err_RatFile);
+
+
+    cout << "    x       y     interpolated     bin error    " << endl;
+    cout << "------------------------------------------------" << endl;
+    cout << fixed;
+    for (int i = 0; i < n3; i++) {
+        double xx3 = xv3[i];
+        double yy3 = yv3[i];
+        double binErr = abs(si.interp(xx3) - yy3);
+        ERRORFILE << xx3 << " " << binErr  << "\n";
+        cout << xx3 << " " << setw(10) << yy3 << " " << setw(10) <<  si.interp(xx3) << " " << setw(10) << binErr << endl;
+    }
+
+    cout << endl << "Your data set has been interpolated!" << endl << endl;
+    return 0;
+}
+
